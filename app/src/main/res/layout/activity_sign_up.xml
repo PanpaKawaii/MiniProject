@@ -13,49 +13,96 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="60dp"
-        android:layout_marginBottom="60dp"
+        android:layout_marginTop="40dp"
+        android:layout_marginBottom="40dp"
         android:text="Sign Up Form"
         android:textColor="#000000"
         android:textSize="28sp"
         android:textStyle="bold" />
 
+    <View
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_weight="0.2" />
+
     <EditText
         android:id="@+id/etUsername"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="40dp"
         android:background="@drawable/edittext_style"
         android:hint="Username"
         android:inputType="text"
         android:padding="12dp" />
 
+    <TextView
+        android:id="@+id/tvUsernameError"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="#FF0000"
+        android:textSize="12sp"
+        android:visibility="invisible"
+        android:layout_marginTop="4dp"
+        android:layout_marginBottom="16dp"/>
+
     <EditText
         android:id="@+id/etPassword"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="40dp"
         android:background="@drawable/edittext_style"
         android:hint="Password"
         android:inputType="textPassword"
         android:padding="12dp" />
 
+    <TextView
+        android:id="@+id/tvPasswordError"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="#FF0000"
+        android:textSize="12sp"
+        android:visibility="invisible"
+        android:layout_marginTop="4dp"
+        android:layout_marginBottom="16dp"/>
+
     <EditText
         android:id="@+id/etConfirmPassword"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="40dp"
         android:background="@drawable/edittext_style"
         android:hint="Confirm Password"
         android:inputType="textPassword"
         android:padding="12dp" />
 
     <TextView
+        android:id="@+id/tvConfirmPasswordError"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="#FF0000"
+        android:textSize="12sp"
+        android:visibility="invisible"
+        android:layout_marginTop="4dp"
+        android:layout_marginBottom="16dp"/>
+
+    <View
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_weight="0.8" />
+        
+    <TextView
+        android:id="@+id/tvSignUpError"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="#FF0000"
+        android:textSize="14sp"
+        android:visibility="invisible"
+        android:layout_marginBottom="12dp"
+        android:gravity="center_horizontal"/>
+
+    <TextView
         android:id="@+id/tvAlreadyAccount"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
-        android:layout_marginBottom="24dp"
+        android:layout_marginBottom="12dp"
         android:clickable="true"
         android:focusable="true"
         android:text="Already Account ? Sign In"
@@ -65,8 +112,8 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        android:layout_marginBottom="24dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginBottom="12dp"
         android:background="@color/white"
         android:paddingHorizontal="8dp"
         android:text="-----Or-----"
