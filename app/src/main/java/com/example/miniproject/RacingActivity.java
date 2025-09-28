@@ -25,27 +25,11 @@ public class RacingActivity extends AppCompatActivity {
         pb1.setProgress(0);
         pb2.setProgress(0);
         pb3.setProgress(0);
-        tvResult.setText("Đang chuẩn bị...");
-        isRunning = false; // chưa cho chạy ngay
+        tvResult.setText("Đang chạy...");
+        isRunning = true;
 
-        // 1. Dừng nhạc nền chờ
-        MusicManager.stopBackground();
-
-        // 2. Phát sound effect "Ready"
-        MusicManager.playEffect(this, R.raw.readytorace);
-
-        // 3. Delay 2 giây rồi mới bắt đầu nhạc race + chạy thanh progress
-        handler.postDelayed(() -> {
-            // 3.1 Phát nhạc nền cuộc đua
-            MusicManager.playBackground(this, R.raw.backgoundrace);
-
-            // 3.2 Bắt đầu chạy
-            isRunning = true;
-            handler.postDelayed(updateRunnable, delayInterval);
-            tvResult.setText("Đang chạy...");
-        }, 5000); // delay 2000ms = 2 giây (có thể chỉnh)
+        handler.postDelayed(updateRunnable, delayInterval);
     }
-
 
     private Runnable updateRunnable = new Runnable() {
         @Override
@@ -78,9 +62,6 @@ public class RacingActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        MusicManager.playBackground(this, R.raw.backgoundwait);
-
         setContentView(R.layout.activity_racing);
 
         pb1 = findViewById(R.id.progressBar1);
