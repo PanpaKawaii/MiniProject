@@ -75,7 +75,7 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
         }
 
         // Start MainActivity
-        Intent intent = new Intent(this, MainActivity.class);
+        Intent intent = new Intent(this, RacingActivity.class);
         startActivity(intent);
         finish(); // Close current activity
     }
