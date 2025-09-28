@@ -11,11 +11,14 @@ public class MusicManager {
 
     /** Phát nhạc nền (loop) */
     public static void playBackground(Context context, int resId) {
-        stopBackground(); // dừng nhạc cũ nếu có
+        stopBackground();
         bgMusic = MediaPlayer.create(context, resId);
-        bgMusic.setLooping(true);
-        bgMusic.start();
+        if (bgMusic != null) {
+            bgMusic.setLooping(true);
+            bgMusic.start();
+        }
     }
+
 
     /** Dừng nhạc nền */
     public static void stopBackground() {
