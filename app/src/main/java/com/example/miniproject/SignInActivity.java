@@ -69,6 +69,8 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
     private void signIn() {
         // Invalid
         if (!checkInput()) {
+            // Play error sound
+            MusicManager.playEffect(this, R.raw.errorlogin);
             return;
         }
 
