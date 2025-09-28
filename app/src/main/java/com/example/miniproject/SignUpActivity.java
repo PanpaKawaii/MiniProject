@@ -73,9 +73,11 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
     private void signUp() {
         // Invalid
         if (!checkInput()) {
+            MusicManager.playEffect(this, R.raw.errorlogin);
             return;
         }
 
+        MusicManager.playEffect(this, R.raw.login);
         // Registration successful - you can add your logic here
         Toast.makeText(this, "Registration successful!", Toast.LENGTH_SHORT).show();
 
