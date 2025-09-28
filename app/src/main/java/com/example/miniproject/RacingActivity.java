@@ -14,7 +14,7 @@ public class RacingActivity extends AppCompatActivity {
     Button btnStart;
     Handler handler = new Handler();
     Random random = new Random();
-    int delayInterval = 50;
+    private static final int UPDATE_INTERVAL_MS = 50;
 
     int val1 = 0, val2 = 0, val3 = 0;
     boolean isRunning = false;
@@ -28,7 +28,7 @@ public class RacingActivity extends AppCompatActivity {
         tvResult.setText("Đang chạy...");
         isRunning = true;
 
-        handler.postDelayed(updateRunnable, delayInterval);
+        handler.postDelayed(updateRunnable, UPDATE_INTERVAL_MS);
     }
 
     private Runnable updateRunnable = new Runnable() {
@@ -46,15 +46,19 @@ public class RacingActivity extends AppCompatActivity {
             pb3.setProgress(val3);
 
             // Kiểm tra điều kiện dừng
-            if (val1 >= 100 || val2 >= 100 || val3 >= 100) {
+            int max1 = pb1.getMax();
+            int max2 = pb2.getMax();
+            int max3 = pb3.getMax();
+
+            if (val1 >= max1 || val2 >= max2 || val3 >= max3) {
                 isRunning = false;
                 String winner = "";
-                if (val1 >= 100) winner += "Thanh 1 ";
-                if (val2 >= 100) winner += "Thanh 2 ";
-                if (val3 >= 100) winner += "Thanh 3 ";
+                if (val1 >= max1) winner += "Thanh 1 ";
+                if (val2 >= max2) winner += "Thanh 2 ";
+                if (val3 >= max3) winner += "Thanh 3 ";
                 tvResult.setText("Hoàn thành: " + winner);
             } else {
-                handler.postDelayed(this, delayInterval); // lặp lại sau 1 giây
+                handler.postDelayed(this, UPDATE_INTERVAL_MS);
             }
         }
     };
