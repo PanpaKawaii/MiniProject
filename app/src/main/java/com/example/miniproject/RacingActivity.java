@@ -47,7 +47,6 @@ public class RacingActivity extends AppCompatActivity {
         }, 5000); // delay 2000ms = 2 giây (có thể chỉnh)
     }
 
-
     private Runnable updateRunnable = new Runnable() {
         @Override
         public void run() {
