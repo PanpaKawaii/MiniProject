@@ -7,7 +7,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
+// Removed Toast import as it's no longer used for validation errors
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -19,9 +19,17 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
     private EditText etConfirmPassword;
     private TextView tvAlreadyAccount;
     private Button btnSignUp;
+    private TextView tvUsernameError;
+    private TextView tvPasswordError;
+    private TextView tvConfirmPasswordError;
+    private TextView tvSignUpError;
 
     // Notify
-    private final String REQUIRE = "Require";
+    private final String REQUIRE = "This field is required";
+    private final String PASSWORDS_DO_NOT_MATCH = "Passwords do not match";
+    private final String USERNAME_EXISTS = "Username already exists";
+
+    private AccountManager accountManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,57 +42,85 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
         etConfirmPassword = findViewById(R.id.etConfirmPassword);
         tvAlreadyAccount = findViewById(R.id.tvAlreadyAccount);
         btnSignUp = findViewById(R.id.btnSignUp);
+        tvUsernameError = findViewById(R.id.tvUsernameError);
+        tvPasswordError = findViewById(R.id.tvPasswordError);
+        tvConfirmPasswordError = findViewById(R.id.tvConfirmPasswordError);
+        tvSignUpError = findViewById(R.id.tvSignUpError);
+
+        // Initialize AccountManager
+        accountManager = AccountManager.getInstance(this);
 
         // Register event
         tvAlreadyAccount.setOnClickListener(this);
         btnSignUp.setOnClickListener(this);
     }
 
+    private void clearErrorMessages() {
+        tvUsernameError.setText(""); // Clear text before making it invisible
+        tvUsernameError.setVisibility(View.INVISIBLE);
+        tvPasswordError.setText(""); // Clear text
+        tvPasswordError.setVisibility(View.INVISIBLE);
+        tvConfirmPasswordError.setText(""); // Clear text
+        tvConfirmPasswordError.setVisibility(View.INVISIBLE);
+        tvSignUpError.setText(""); // Clear text
+        tvSignUpError.setVisibility(View.INVISIBLE);
+    }
+
     private boolean checkInput() {
+        clearErrorMessages();
+        boolean isValid = true;
+
         // Username validation
         if (TextUtils.isEmpty(etUsername.getText().toString())) {
-            etUsername.setError(REQUIRE);
-            return false;
+            tvUsernameError.setText(REQUIRE);
+            tvUsernameError.setVisibility(View.VISIBLE);
+            isValid = false;
         }
 
         // Password validation
         if (TextUtils.isEmpty(etPassword.getText().toString())) {
-            etPassword.setError(REQUIRE);
-            return false;
+            tvPasswordError.setText(REQUIRE);
+            tvPasswordError.setVisibility(View.VISIBLE);
+            isValid = false;
         }
 
         // Confirm password validation
         if (TextUtils.isEmpty(etConfirmPassword.getText().toString())) {
-            etConfirmPassword.setError(REQUIRE);
-            return false;
-        }
-
-        // Password match validation
-        if (!TextUtils.equals(etPassword.getText().toString(),
+            tvConfirmPasswordError.setText(REQUIRE);
+            tvConfirmPasswordError.setVisibility(View.VISIBLE);
+            isValid = false;
+        } else if (!TextUtils.equals(etPassword.getText().toString(),
                 etConfirmPassword.getText().toString())) {
-            Toast.makeText(this, "Passwords do not match", Toast.LENGTH_LONG).show();
-            return false;
+            tvConfirmPasswordError.setText(PASSWORDS_DO_NOT_MATCH);
+            tvConfirmPasswordError.setVisibility(View.VISIBLE);
+            isValid = false;
         }
 
-        // Valid
-        return true;
+        return isValid;
     }
 
     private void signUp() {
-        // Invalid
         if (!checkInput()) {
             MusicManager.playEffect(this, R.raw.errorlogin);
             return;
         }
 
-        MusicManager.playEffect(this, R.raw.login);
-        // Registration successful - you can add your logic here
-        Toast.makeText(this, "Registration successful!", Toast.LENGTH_SHORT).show();
+        String username = etUsername.getText().toString();
+        String password = etPassword.getText().toString();
 
-        // Optionally go to main activity after successful registration
-        // Intent intent = new Intent(this, MainActivity.class);
-        // startActivity(intent);
-        // finish();
+        if (accountManager.addUser(username, password)) {
+            MusicManager.playEffect(this, R.raw.login);
+            // Toast.makeText(this, "Registration successful!", Toast.LENGTH_SHORT).show(); // Optional: keep for success
+            // Go to Sign In screen after successful registration
+            Intent intent = new Intent(this, SignInActivity.class);
+            intent.putExtra("REGISTRATION_SUCCESSFUL", true); // Pass a flag for optional success message on SignIn screen
+            startActivity(intent);
+            finish();
+        } else {
+            MusicManager.playEffect(this, R.raw.errorlogin);
+            tvSignUpError.setText(USERNAME_EXISTS);
+            tvSignUpError.setVisibility(View.VISIBLE);
+        }
     }
 
     private void signInForm() {
