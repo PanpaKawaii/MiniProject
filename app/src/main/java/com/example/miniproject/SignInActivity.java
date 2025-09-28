@@ -74,6 +74,9 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
             return;
         }
 
+        // Play success sound
+        MusicManager.playEffect(this, R.raw.login);
+
         // Start MainActivity
         Intent intent = new Intent(this, RacingActivity.class);
         startActivity(intent);
