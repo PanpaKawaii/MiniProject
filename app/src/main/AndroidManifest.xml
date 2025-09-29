@@ -13,7 +13,7 @@
         android:theme="@style/Theme.MiniProject">
         <activity
             android:name=".SignInActivity"
-            android:exported="true">
+            android:exported="true"><!-- set để test popup android:name=".subPopup"  -->
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".subPopup"
+    android:orientation="vertical"
+    android:padding="24dp">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Nhập A, B, C, D (số dương)"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:paddingBottom="12dp" />
+
+    <EditText
+        android:id="@+id/etA"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="A"
+        android:inputType="numberDecimal"
+        android:maxLines="1"
+        android:padding="12dp" />
+
+    <EditText
+        android:id="@+id/etB"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="B"
+        android:inputType="numberDecimal"
+        android:maxLines="1"
+        android:padding="12dp"
+        android:layout_marginTop="8dp" />
+
+    <EditText
+        android:id="@+id/etC"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="C"
+        android:inputType="numberDecimal"
+        android:maxLines="1"
+        android:padding="12dp"
+        android:layout_marginTop="8dp" />
+
+    <EditText
+        android:id="@+id/etD"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="D"
+        android:inputType="numberDecimal"
+        android:maxLines="1"
+        android:padding="12dp"
+        android:layout_marginTop="8dp" />
+
+    <Button
+        android:id="@+id/btnShowResult"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Tính"
+        android:layout_marginTop="16dp" />
+
+</LinearLayout>
