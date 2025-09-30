@@ -7,20 +7,22 @@ import android.provider.BaseColumns;
 
 public class AccountDbHelper extends SQLiteOpenHelper {
 
-    public static final int DATABASE_VERSION = 1;
+    public static final int DATABASE_VERSION = 2;
     public static final String DATABASE_NAME = "Accounts.db";
 
     public static class AccountEntry implements BaseColumns {
         public static final String TABLE_NAME = "accounts";
         public static final String COLUMN_NAME_USERNAME = "username";
         public static final String COLUMN_NAME_PASSWORD = "password";
+        public static final String COLUMN_NAME_BALANCE = "balance";
     }
 
     private static final String SQL_CREATE_ENTRIES =
             "CREATE TABLE " + AccountEntry.TABLE_NAME + " (" +
                     AccountEntry._ID + " INTEGER PRIMARY KEY," +
                     AccountEntry.COLUMN_NAME_USERNAME + " TEXT UNIQUE," +
-                    AccountEntry.COLUMN_NAME_PASSWORD + " TEXT)";
+                    AccountEntry.COLUMN_NAME_PASSWORD + " TEXT," +
+                    AccountEntry.COLUMN_NAME_BALANCE + " INTEGER)";
 
     private static final String SQL_DELETE_ENTRIES =
             "DROP TABLE IF EXISTS " + AccountEntry.TABLE_NAME;

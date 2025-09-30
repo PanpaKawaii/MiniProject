@@ -24,10 +24,13 @@
             android:name=".SignUpActivity">
         </activity>
         <activity
-            android:name=".MainActivity">
+            android:name=".RacingActivity">
         </activity>
         <activity
-            android:name=".RacingActivity">
+            android:name=".MoneyActivity">
+        </activity>
+        <activity
+            android:name=".MainActivity">
         </activity>
     </application>
 
