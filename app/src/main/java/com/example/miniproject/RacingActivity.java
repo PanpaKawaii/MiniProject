@@ -1,29 +1,36 @@
 package com.example.miniproject;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-
 import android.widget.EditText;
 import android.widget.Toast;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
 
 public class RacingActivity extends AppCompatActivity {
+
+    String SESSION_USERNAME = "";
+    int SESSION_BALANCE = 0;
+
     ProgressBar pb1, pb2, pb3;
-    TextView tvResult, tvMoney;
-    Button btnStart;
+    TextView tvResult;
+    Button btnMoney, btnStart;
     ImageView imgDuck1, imgDuck2, imgDuck3;
     EditText edtBetDuck1, edtBetDuck2, edtBetDuck3;
 
     Handler handler = new Handler();
     Random random = new Random();
+
     private static final int UPDATE_INTERVAL_MS = 50;
     private static final int WIN_THRESHOLD = 96;
     private static final int MAX_PROGRESS = 100;
@@ -33,42 +40,54 @@ public class RacingActivity extends AppCompatActivity {
     boolean winnerDetermined = false;
     int userMoney = 1000; // Hardcoded money for now
     int betDuck1 = 0, betDuck2 = 0, betDuck3 = 0;
+    int afterBetAmount = 0;
     int totalBetAmount = 0;
+
+    private AccountManager accountManager;
 
     // Toggle để đổi ảnh tạo hiệu ứng chạy
     boolean toggle1 = false, toggle2 = false, toggle3 = false;
 
-    private void startRace() {
+    private void depositMoney(String username, int balance) {
+        Intent intent = new Intent(this, MoneyActivity.class);
+        intent.putExtra("username", username);
+        intent.putExtra("balance", balance);
+        startActivity(intent);
+    }
+
+    private void startRace(String username) {
         // Lấy số tiền cược cho từng vịt
         try {
             betDuck1 = getBetAmount(edtBetDuck1);
             betDuck2 = getBetAmount(edtBetDuck2);
             betDuck3 = getBetAmount(edtBetDuck3);
         } catch (NumberFormatException e) {
-            Toast.makeText(this, "Vui lòng nhập số tiền hợp lệ!", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Please enter a valid number", Toast.LENGTH_SHORT).show();
             return;
         }
 
         // Tính tổng tiền cược
+        int min = Math.min(betDuck1, Math.min(betDuck2, betDuck3));
+        afterBetAmount = SESSION_BALANCE + 2 * min - (betDuck1 + betDuck2 + betDuck3);
         totalBetAmount = betDuck1 + betDuck2 + betDuck3;
 
         // Kiểm tra validation
         if (totalBetAmount <= 0) {
-            Toast.makeText(this, "Vui lòng đặt cược ít nhất một vịt!", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Please bet at least one duck", Toast.LENGTH_SHORT).show();
             return;
         }
 
-        if (totalBetAmount > userMoney) {
-            Toast.makeText(this, "Tổng tiền cược không được vượt quá số dư!", Toast.LENGTH_SHORT).show();
+        if (afterBetAmount < 0) {
+            Toast.makeText(this, "Your balance is not enough", Toast.LENGTH_SHORT).show();
             return;
         }
 
         // Reset race state
+        tvResult.setText("Get ready...");
         val1 = val2 = val3 = 0;
         pb1.setProgress(0);
         pb2.setProgress(0);
         pb3.setProgress(0);
-        tvResult.setText("Đang chuẩn bị...");
         isRunning = false;
         winnerDetermined = false;
 
@@ -82,6 +101,20 @@ public class RacingActivity extends AppCompatActivity {
 
         // 2. Phát sound effect "Ready"
         MusicManager.playEffect(this, R.raw.readytorace);
+
+        handler.postDelayed(new Runnable() {
+            int count = 3;
+            @Override
+            public void run() {
+                if (count > 0) {
+                    tvResult.setText(String.valueOf(count));
+                    count--;
+                    handler.postDelayed(this, 1000); // lặp lại sau 1 giây
+                } else {
+                    tvResult.setText("GO!");
+                }
+            }
+        }, 1000);
 
         // 3. Delay 5 giây rồi mới bắt đầu nhạc race + chạy thanh progress
         handler.postDelayed(() -> {
@@ -217,17 +250,19 @@ public class RacingActivity extends AppCompatActivity {
         int loseAmount = totalBetAmount - winningBet;
 
         // Cập nhật tiền: tiền hiện tại + tiền thắng - tiền thua
-        userMoney = userMoney + profit - loseAmount;
+        int newBalance = accountManager.getMoney(SESSION_USERNAME) + profit - loseAmount;
 
         // Hiển thị kết quả chi tiết
         String result = "Vịt " + winner + " THẮNG!\n";
         result += "Thắng: +" + profit + " | Thua: -" + loseAmount + "\n";
-        result += "Tổng: " + (profit - loseAmount) + " | Số dư: " + userMoney;
+        result += "Tổng: " + (profit - loseAmount) + " | Số dư: " + newBalance;
+
+        accountManager.updateBalance(SESSION_USERNAME, newBalance);
 
         tvResult.setText(result);
 
         // Update money display
-        tvMoney.setText("Số dư: " + userMoney + " $");
+        btnMoney.setText("$" + newBalance);
 
         // Reset bet amounts for next race
         resetBets();
@@ -335,7 +370,7 @@ public class RacingActivity extends AppCompatActivity {
         pb2 = findViewById(R.id.progressBar2);
         pb3 = findViewById(R.id.progressBar3);
         tvResult = findViewById(R.id.tvResult);
-        tvMoney = findViewById(R.id.tvMoney);
+        btnMoney = findViewById(R.id.btnMoney);
         btnStart = findViewById(R.id.btnStart);
         edtBetDuck1 = findViewById(R.id.edtBetDuck1);
         edtBetDuck2 = findViewById(R.id.edtBetDuck2);
@@ -344,11 +379,19 @@ public class RacingActivity extends AppCompatActivity {
         imgDuck2 = findViewById(R.id.imgDuck2);
         imgDuck3 = findViewById(R.id.imgDuck3);
 
+        accountManager = AccountManager.getInstance(this);
+
+        SESSION_USERNAME = getIntent().getStringExtra("username");
+        SESSION_BALANCE = getIntent().getIntExtra("balance", 0);
+
         // Initialize money display
-        tvMoney.setText("Số dư: " + userMoney + " $");
+        btnMoney.setText("$" + SESSION_BALANCE);
+
+        // Get More Money
+        btnMoney.setOnClickListener(v -> depositMoney(SESSION_USERNAME, SESSION_BALANCE));
 
         // Start race button
-        btnStart.setOnClickListener(v -> startRace());
+        btnStart.setOnClickListener(v -> startRace(SESSION_USERNAME));
     }
 
     @Override

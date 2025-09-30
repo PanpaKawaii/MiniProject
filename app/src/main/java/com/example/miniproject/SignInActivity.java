@@ -105,12 +105,15 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
         String password = etPassword.getText().toString();
 
         if (accountManager.isValidUser(username, password)) {
+            int balance = accountManager.getMoney(username);
             MusicManager.playEffect(this, R.raw.login);
-            // Toast.makeText(this, "Sign In successful!", Toast.LENGTH_SHORT).show(); // Optional: keep for success
+            // Toast.makeText(this, "Sign In Successful!", Toast.LENGTH_SHORT).show(); // Optional: keep for success
             // Start RacingActivity
             Intent intent = new Intent(this, RacingActivity.class);
+            intent.putExtra("username", username);
+            intent.putExtra("balance", balance);
             startActivity(intent);
-            finish(); // Close current activity
+            finish();
         } else {
             MusicManager.playEffect(this, R.raw.errorlogin);
             tvSignInError.setText(INVALID_CREDENTIALS);
