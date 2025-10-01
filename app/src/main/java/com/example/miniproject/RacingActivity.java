@@ -2,9 +2,13 @@ package com.example.miniproject;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.AlertDialog;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.os.Handler;
+import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
@@ -38,7 +42,6 @@ public class RacingActivity extends AppCompatActivity {
     int val1 = 0, val2 = 0, val3 = 0;
     boolean isRunning = false;
     boolean winnerDetermined = false;
-    int userMoney = 1000; // Hardcoded money for now
     int betDuck1 = 0, betDuck2 = 0, betDuck3 = 0;
     int afterBetAmount = 0;
     int totalBetAmount = 0;
@@ -48,14 +51,14 @@ public class RacingActivity extends AppCompatActivity {
     // Toggle để đổi ảnh tạo hiệu ứng chạy
     boolean toggle1 = false, toggle2 = false, toggle3 = false;
 
-    private void depositMoney(String username, int balance) {
+    private void depositMoney() {
         Intent intent = new Intent(this, MoneyActivity.class);
-        intent.putExtra("username", username);
-        intent.putExtra("balance", balance);
+        intent.putExtra("username", SESSION_USERNAME);
+        intent.putExtra("balance", SESSION_BALANCE);
         startActivity(intent);
     }
 
-    private void startRace(String username) {
+    private void startRace() {
         // Lấy số tiền cược cho từng vịt
         try {
             betDuck1 = getBetAmount(edtBetDuck1);
@@ -104,6 +107,7 @@ public class RacingActivity extends AppCompatActivity {
 
         handler.postDelayed(new Runnable() {
             int count = 3;
+
             @Override
             public void run() {
                 if (count > 0) {
@@ -126,7 +130,7 @@ public class RacingActivity extends AppCompatActivity {
             handler.postDelayed(updateRunnable, UPDATE_INTERVAL_MS);
 
             // Hiển thị thông tin cược
-            String betInfo = "Đang chạy... - Cược: ";
+            String betInfo = "Racing... - Bet: ";
             if (betDuck1 > 0) betInfo += "V1:" + betDuck1 + " ";
             if (betDuck2 > 0) betInfo += "V2:" + betDuck2 + " ";
             if (betDuck3 > 0) betInfo += "V3:" + betDuck3;
@@ -146,7 +150,7 @@ public class RacingActivity extends AppCompatActivity {
         }
         int amount = Integer.parseInt(text);
         if (amount < 0) {
-            Toast.makeText(this, "Số tiền cược không được âm!", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "The amount must be a valid number", Toast.LENGTH_SHORT).show();
             throw new NumberFormatException();
         }
         return amount;
@@ -227,54 +231,93 @@ public class RacingActivity extends AppCompatActivity {
     }
 
     private void processBetResult(int winner) {
-        int profit = 0;
-        int winningBet = 0;
+        int winAmount = 0;
+        int loseAmount1 = 0;
+        int loseAmount2 = 0;
 
         // Tính toán kết quả
         switch (winner) {
             case 1:
-                winningBet = betDuck1;
-                profit = winningBet; // Thắng bằng đúng số tiền cược vào vịt 1
+                winAmount = betDuck1;
+                loseAmount1 = betDuck2;
+                loseAmount2 = betDuck3;
                 break;
             case 2:
-                winningBet = betDuck2;
-                profit = winningBet; // Thắng bằng đúng số tiền cược vào vịt 2
+                winAmount = betDuck2;
+                loseAmount1 = betDuck1;
+                loseAmount2 = betDuck3;
                 break;
             case 3:
-                winningBet = betDuck3;
-                profit = winningBet; // Thắng bằng đúng số tiền cược vào vịt 3
+                winAmount = betDuck3;
+                loseAmount1 = betDuck1;
+                loseAmount2 = betDuck2;
                 break;
         }
 
-        // Tính tổng thua (tổng cược trừ đi số cược vào vịt thắng)
-        int loseAmount = totalBetAmount - winningBet;
+        int loseAmount = loseAmount1 + loseAmount2;
+        int totalAmount = winAmount - loseAmount;
 
-        // Cập nhật tiền: tiền hiện tại + tiền thắng - tiền thua
-        int newBalance = accountManager.getMoney(SESSION_USERNAME) + profit - loseAmount;
-
-        // Hiển thị kết quả chi tiết
-        String result = "Vịt " + winner + " THẮNG!\n";
-        result += "Thắng: +" + profit + " | Thua: -" + loseAmount + "\n";
-        result += "Tổng: " + (profit - loseAmount) + " | Số dư: " + newBalance;
-
+        // Update balance: current + win - lose
+        int newBalance = accountManager.getMoney(SESSION_USERNAME) + winAmount - loseAmount;
         accountManager.updateBalance(SESSION_USERNAME, newBalance);
-
-        tvResult.setText(result);
 
         // Update money display
         btnMoney.setText("$" + newBalance);
 
+        // Show popup
+        showResultPopup(winner, totalAmount, betDuck1, betDuck2, betDuck3, newBalance);
+
+        // Hiển thị kết quả chi tiết
+//        String result = "DUCK " + winner + " WIN!\n";
+//        result += "WIN: +" + profit + " | LOSE: -" + loseAmount + "\n";
+//        result += "Thắng: +" + profit + " | Thua: -" + loseAmount + "\n";
+//        result += "Tổng: " + (profit - loseAmount) + " | Số dư: " + newBalance;
+//        tvResult.setText(result);
+
         // Reset bet amounts for next race
         resetBets();
+    }
 
-        // Hiển thị toast thông báo
-        if (profit > loseAmount) {
-            Toast.makeText(this, "Chúc mừng! Bạn lời " + (profit - loseAmount), Toast.LENGTH_LONG).show();
-        } else if (profit < loseAmount) {
-            Toast.makeText(this, "Tiếc quá! Bạn lỗ " + (loseAmount - profit), Toast.LENGTH_LONG).show();
+    private void showResultPopup(int winner, int totalAmount, int betDuck1, int betDuck2, int betDuck3, int newBalance) {
+        View popupView = getLayoutInflater().inflate(R.layout.popup_result, null);
+
+        TextView tvA = popupView.findViewById(R.id.tvA);
+        TextView tvB = popupView.findViewById(R.id.tvB);
+        TextView tvC = popupView.findViewById(R.id.tvC);
+        TextView tvWin = popupView.findViewById(R.id.tvWin);
+        TextView tvTotal = popupView.findViewById(R.id.tvTotal);
+        Button btnClose = popupView.findViewById(R.id.btnClose);
+
+        tvA.setText("Duck 1: " + (winner == 1 ? " +" : " -") + betDuck1);
+        tvB.setText("Duck 2: " + (winner == 2 ? " +" : " -") + betDuck2);
+        tvC.setText("Duck 3: " + (winner == 3 ? " +" : " -") + betDuck3);
+
+        final double EPS = 1e-9;
+        String result;
+        double winDisplayValue;
+        if (totalAmount < -EPS) {
+            winDisplayValue = Math.abs(totalAmount);
+            result = "-$" + winDisplayValue;
+        } else if (Math.abs(totalAmount) <= EPS) {
+//            winDisplayValue = 0d;
+            result = "Draw";
         } else {
-            Toast.makeText(this, "Hòa vốn!", Toast.LENGTH_LONG).show();
+            winDisplayValue = totalAmount;
+            result = "+$" + winDisplayValue;
         }
+        tvWin.setText("Result: " + result);
+        tvTotal.setText("NEW BALANCE: " + newBalance);
+
+        AlertDialog dialog = new AlertDialog.Builder(this)
+                .setView(popupView)
+                .setCancelable(true)
+                .create();
+        if (dialog.getWindow() != null) {
+            dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        }
+        dialog.show();
+
+        btnClose.setOnClickListener(v -> dialog.dismiss());
     }
 
     private void resetBets() {
@@ -388,10 +431,10 @@ public class RacingActivity extends AppCompatActivity {
         btnMoney.setText("$" + SESSION_BALANCE);
 
         // Get More Money
-        btnMoney.setOnClickListener(v -> depositMoney(SESSION_USERNAME, SESSION_BALANCE));
+        btnMoney.setOnClickListener(v -> depositMoney());
 
         // Start race button
-        btnStart.setOnClickListener(v -> startRace(SESSION_USERNAME));
+        btnStart.setOnClickListener(v -> startRace());
     }
 
     @Override
