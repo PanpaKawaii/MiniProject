@@ -2,6 +2,9 @@
     <style name="OrientationStyle">
         <item name="android:orientation">vertical</item>
     </style>
+    <style name="HeaderSize">
+        <item name="android:layout_height">108dp</item>
+    </style>
     <style name="OrientationStyle2">
         <item name="android:orientation">horizontal</item>
         <item name="android:layout_width">match_parent</item>

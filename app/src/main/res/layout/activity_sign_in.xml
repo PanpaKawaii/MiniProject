@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/signin"
+    android:background="@drawable/signin_bg"
     android:gravity="center_horizontal"
     android:orientation="vertical"
     tools:context=".SignInActivity">
@@ -29,9 +29,14 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="40dp"
-                android:text="Sign In Form"
+                android:padding="8dp"
+                android:shadowColor="#fb28a745"
+                android:shadowDx="6"
+                android:shadowDy="6"
+                android:shadowRadius="8"
+                android:text="Sign In"
                 android:textColor="#FFFFFF"
-                android:textSize="28sp"
+                android:textSize="40sp"
                 android:textStyle="bold" />
 
             <EditText
@@ -41,8 +46,8 @@
                 android:background="@drawable/edittext_style"
                 android:hint="Username"
                 android:inputType="text"
-                android:paddingHorizontal="16dp"
-                android:paddingVertical="8dp" />
+                android:paddingHorizontal="20dp"
+                android:paddingVertical="12dp" />
 
             <TextView
                 android:id="@+id/tvUsernameErrorSignIn"
@@ -60,8 +65,8 @@
                 android:background="@drawable/edittext_style"
                 android:hint="Password"
                 android:inputType="textPassword"
-                android:paddingHorizontal="16dp"
-                android:paddingVertical="8dp" />
+                android:paddingHorizontal="20dp"
+                android:paddingVertical="12dp" />
 
             <TextView
                 android:id="@+id/tvPasswordErrorSignIn"
@@ -101,6 +106,10 @@
                 android:layout_gravity="center_horizontal"
                 android:layout_marginVertical="8dp"
                 android:paddingHorizontal="8dp"
+                android:shadowColor="#ffffff"
+                android:shadowDx="2"
+                android:shadowDy="2"
+                android:shadowRadius="2"
                 android:text="-----Or-----"
                 android:textColor="#020202"
                 android:textSize="14sp" />
@@ -112,7 +121,11 @@
                 android:layout_gravity="center_horizontal"
                 android:clickable="true"
                 android:focusable="true"
-                android:text="Not Account Yet ? Create one"
+                android:shadowColor="#ffffff"
+                android:shadowDx="2"
+                android:shadowDy="2"
+                android:shadowRadius="2"
+                android:text="Not account yet? Create one"
                 android:textColor="#0000FF"
                 android:textSize="14sp" />
 

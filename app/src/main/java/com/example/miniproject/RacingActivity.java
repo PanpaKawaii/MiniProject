@@ -297,9 +297,9 @@ public class RacingActivity extends AppCompatActivity {
         MusicManager.stopBackground();
         MusicManager.playEffect(this, R.raw.endrace);
 
-        tvA.setText("Duck 1: " + (winner == 1 ? " +" : " -") + betDuck1);
-        tvB.setText("Duck 2: " + (winner == 2 ? " +" : " -") + betDuck2);
-        tvC.setText("Duck 3: " + (winner == 3 ? " +" : " -") + betDuck3);
+        tvA.setText("Duck 1: " + (winner == 1 ? " +$" : " -$") + betDuck1);
+        tvB.setText("Duck 2: " + (winner == 2 ? " +$" : " -$") + betDuck2);
+        tvC.setText("Duck 3: " + (winner == 3 ? " +$" : " -$") + betDuck3);
 
         final double EPS = 1e-9;
         String result;
@@ -315,7 +315,7 @@ public class RacingActivity extends AppCompatActivity {
             result = "+$" + winDisplayValue;
         }
         tvWin.setText("Result: " + result);
-        tvTotal.setText("NEW BALANCE: " + newBalance);
+        tvTotal.setText("NEW BALANCE: $" + newBalance);
 
         AlertDialog dialog = new AlertDialog.Builder(this)
                 .setView(popupView)
@@ -467,7 +467,6 @@ public class RacingActivity extends AppCompatActivity {
         });
     }
 
-
     @Override
     protected void onResume() {
         super.onResume();
@@ -479,8 +478,6 @@ public class RacingActivity extends AppCompatActivity {
         int balance = accountManager.getMoney(SESSION_USERNAME);
         btnMoney.setText("$" + balance);
     }
-
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

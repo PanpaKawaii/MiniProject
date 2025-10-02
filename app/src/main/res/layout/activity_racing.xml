@@ -12,19 +12,7 @@
 
     <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="100dp">
-
-        <!-- Money -->
-        <Button
-            android:id="@+id/btnMoney"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:backgroundTint="#FEEA66"
-            android:text="$0"
-            android:textColor="#fb8b24"
-            android:textSize="20sp"
-            android:textStyle="bold"
-            style="@style/MoneyButton"/>
+        style="@style/HeaderSize">
 
         <!-- Title -->
         <TextView
@@ -40,6 +28,18 @@
             android:textColor="#ffd700"
             android:textSize="60sp"
             android:textStyle="bold|italic" />
+
+        <!-- Money -->
+        <Button
+            android:id="@+id/btnMoney"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:backgroundTint="#FEEA66"
+            android:text="$0"
+            android:textColor="#fb8b24"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            style="@style/MoneyButton"/>
 
     </FrameLayout>
 
