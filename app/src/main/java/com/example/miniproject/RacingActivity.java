@@ -28,23 +28,21 @@ public class RacingActivity extends AppCompatActivity {
 
     ProgressBar pb1, pb2, pb3;
     TextView tvResult;
-    Button btnMoney, btnStart;
+    Button btnMoney, btnStart, btnReset;
     ImageView imgDuck1, imgDuck2, imgDuck3;
     EditText edtBetDuck1, edtBetDuck2, edtBetDuck3;
 
     Handler handler = new Handler();
     Random random = new Random();
 
-    private static final int UPDATE_INTERVAL_MS = 50;
-    private static final int WIN_THRESHOLD = 96;
-    private static final int MAX_PROGRESS = 100;
+    private static final int UPDATE_INTERVAL_MS = 100;
+    private static final int WIN_THRESHOLD = 396;
+    private static final int MAX_PROGRESS = 400;
 
     int val1 = 0, val2 = 0, val3 = 0;
     boolean isRunning = false;
     boolean winnerDetermined = false;
     int betDuck1 = 0, betDuck2 = 0, betDuck3 = 0;
-    int afterBetAmount = 0;
-    int totalBetAmount = 0;
 
     private AccountManager accountManager;
 
@@ -72,25 +70,23 @@ public class RacingActivity extends AppCompatActivity {
 
         // Tính tổng tiền cược
         int min = Math.min(betDuck1, Math.min(betDuck2, betDuck3));
-        afterBetAmount = SESSION_BALANCE + 2 * min - (betDuck1 + betDuck2 + betDuck3);
-        totalBetAmount = betDuck1 + betDuck2 + betDuck3;
+        int afterBetAmount = accountManager.getMoney(SESSION_USERNAME) + 2 * min - (betDuck1 + betDuck2 + betDuck3);
+        int totalBetAmount = betDuck1 + betDuck2 + betDuck3;
 
         // Kiểm tra validation
         if (totalBetAmount <= 0) {
             Toast.makeText(this, "Please bet at least one duck", Toast.LENGTH_SHORT).show();
             return;
         }
-
         if (afterBetAmount < 0) {
             Toast.makeText(this, "Your balance is not enough", Toast.LENGTH_SHORT).show();
             return;
         }
 
         btnStart.setEnabled(false);
-        findViewById(R.id.btnReset).setEnabled(false);
+        btnReset.setEnabled(false);
 
         // Reset race state
-        tvResult.setText("Get ready...");
         val1 = val2 = val3 = 0;
         pb1.setProgress(0);
         pb2.setProgress(0);
@@ -110,35 +106,36 @@ public class RacingActivity extends AppCompatActivity {
         MusicManager.playEffect(this, R.raw.readytorace);
 
         handler.postDelayed(new Runnable() {
-            int count = 2;
+            int count = 3;
 
             @Override
             public void run() {
                 if (count > 0) {
                     tvResult.setText(String.valueOf(count));
                     count--;
-                    handler.postDelayed(this, 1000); // lặp lại sau 1 giây
+                    handler.postDelayed(this, 1000);
                 } else {
                     tvResult.setText("GO!");
                 }
             }
-        }, 1000);
+        }, 0);
 
         // 3. Delay 5 giây rồi mới bắt đầu nhạc race + chạy thanh progress
         handler.postDelayed(() -> {
             // 3.1 Phát nhạc nền cuộc đua
             MusicManager.playBackground(this, R.raw.backgoundrace);
+            tvResult.setText("");
 
             // 3.2 Bắt đầu chạy
             isRunning = true;
             handler.postDelayed(updateRunnable, UPDATE_INTERVAL_MS);
 
             // Hiển thị thông tin cược
-            String betInfo = "Racing... - Bet: ";
-            if (betDuck1 > 0) betInfo += "V1:" + betDuck1 + " ";
-            if (betDuck2 > 0) betInfo += "V2:" + betDuck2 + " ";
-            if (betDuck3 > 0) betInfo += "V3:" + betDuck3;
-            tvResult.setText(betInfo);
+//            String betInfo = "Racing... - Bet: ";
+//            if (betDuck1 > 0) betInfo += "V1:" + betDuck1 + " ";
+//            if (betDuck2 > 0) betInfo += "V2:" + betDuck2 + " ";
+//            if (betDuck3 > 0) betInfo += "V3:" + betDuck3;
+//            tvResult.setText(betInfo);
         }, 5000);
 
         // Reset vị trí vịt
@@ -229,9 +226,6 @@ public class RacingActivity extends AppCompatActivity {
 
         setWinnerProgress(winner);
         processBetResult(winner);
-
-        // Enable betting for next race
-        setBettingEnabled(true);
     }
 
     private void processBetResult(int winner) {
@@ -239,7 +233,6 @@ public class RacingActivity extends AppCompatActivity {
         int loseAmount1 = 0;
         int loseAmount2 = 0;
 
-        // Tính toán kết quả
         switch (winner) {
             case 1:
                 winAmount = betDuck1;
@@ -271,17 +264,7 @@ public class RacingActivity extends AppCompatActivity {
         // Show popup
         showResultPopup(winner, totalAmount, betDuck1, betDuck2, betDuck3, newBalance);
 
-        // Hiển thị kết quả chi tiết
-//        String result = "DUCK " + winner + " WIN!\n";
-//        result += "WIN: +" + profit + " | LOSE: -" + loseAmount + "\n";
-//        result += "Thắng: +" + profit + " | Thua: -" + loseAmount + "\n";
-//        result += "Tổng: " + (profit - loseAmount) + " | Số dư: " + newBalance;
-//        tvResult.setText(result);
-
-        // Reset bet amounts for next race
-        //resetBets();
-        setBettingEnabled(false); // khóa EditText và Start
-        findViewById(R.id.btnReset).setEnabled(true); // chỉ mở Reset
+        btnReset.setEnabled(true); // chỉ mở Reset
     }
 
     private void showResultPopup(int winner, int totalAmount, int betDuck1, int betDuck2, int betDuck3, int newBalance) {
@@ -315,7 +298,7 @@ public class RacingActivity extends AppCompatActivity {
             result = "+$" + winDisplayValue;
         }
         tvWin.setText("Result: " + result);
-        tvTotal.setText("NEW BALANCE: $" + newBalance);
+        tvTotal.setText("$" + (newBalance - totalAmount) + " ➜ $" + newBalance);
 
         AlertDialog dialog = new AlertDialog.Builder(this)
                 .setView(popupView)
@@ -328,19 +311,9 @@ public class RacingActivity extends AppCompatActivity {
 
         btnClose.setOnClickListener(v -> {
             dialog.dismiss();
-            btnStart.setEnabled(false); // KHÓA Start lại khi đóng popup
-            MusicManager.stopEffect(); // Dừng hiệu ứng âm thanh khi đóng popup
+            MusicManager.stopEffect();
             MusicManager.playBackground(this, R.raw.backgoundwait);
         });
-
-    }
-
-    private void resetBets() {
-        betDuck1 = betDuck2 = betDuck3 = 0;
-        totalBetAmount = 0;
-        edtBetDuck1.setText("");
-        edtBetDuck2.setText("");
-        edtBetDuck3.setText("");
     }
 
     private void setWinnerProgress(int winner) {
@@ -380,10 +353,8 @@ public class RacingActivity extends AppCompatActivity {
             winnerDetermined = true;
             isRunning = false;
             processBetResult(winner);
-//            setBettingEnabled(true);
-            setBettingEnabled(false); // khóa EditText và Start
-            findViewById(R.id.btnReset).setEnabled(true); // chỉ mở Reset
-
+            setBettingEnabled(false);
+            btnReset.setEnabled(true);
         }
     }
 
@@ -392,7 +363,7 @@ public class RacingActivity extends AppCompatActivity {
         int pbWidth = pb.getWidth();
         int duckWidth = duck.getWidth();
         float ratio = progress / (float) pb.getMax();
-        float newX = ratio * (pbWidth - duckWidth);
+        float newX = ratio * pbWidth;
         duck.setX(newX);
 
         // Luân phiên đổi ảnh duck1 <-> duck2
@@ -417,6 +388,7 @@ public class RacingActivity extends AppCompatActivity {
         edtBetDuck2.setEnabled(enabled);
         edtBetDuck3.setEnabled(enabled);
         btnStart.setEnabled(enabled);
+        btnReset.setEnabled(enabled);
     }
 
     private void resetRace() {
@@ -432,39 +404,16 @@ public class RacingActivity extends AppCompatActivity {
         imgDuck3.setX(0);
 
         // Reset cược về 0
-        edtBetDuck1.setText("0");
-        edtBetDuck2.setText("0");
-        edtBetDuck3.setText("0");
+        edtBetDuck1.setText("");
+        edtBetDuck2.setText("");
+        edtBetDuck3.setText("");
 
         // Reset cờ trạng thái
         isRunning = false;
         winnerDetermined = false;
 
-        // Reset hiển thị
-        tvResult.setText("Ready to race!");
-
         // Cho phép đặt cược lại và bật nút Start
         setBettingEnabled(true);
-        btnStart.setEnabled(true);
-        findViewById(R.id.btnReset).setEnabled(true);
-
-    }
-
-    //Code áp dụng cho 3 ô cược
-    private void setupBetEditText(EditText editText) {
-        editText.setOnFocusChangeListener((v, hasFocus) -> {
-            if (hasFocus) {
-                // Nếu đang là "0" thì xóa đi cho dễ nhập
-                if (editText.getText().toString().equals("0")) {
-                    editText.setText("");
-                }
-            } else {
-                // Nếu người dùng không nhập gì thì set lại "0"
-                if (editText.getText().toString().trim().isEmpty()) {
-                    editText.setText("0");
-                }
-            }
-        });
     }
 
     @Override
@@ -493,22 +442,15 @@ public class RacingActivity extends AppCompatActivity {
         tvResult = findViewById(R.id.tvResult);
         btnMoney = findViewById(R.id.btnMoney);
         btnStart = findViewById(R.id.btnStart);
+        btnReset = findViewById(R.id.btnReset);
         edtBetDuck1 = findViewById(R.id.edtBetDuck1);
         edtBetDuck2 = findViewById(R.id.edtBetDuck2);
         edtBetDuck3 = findViewById(R.id.edtBetDuck3);
         imgDuck1 = findViewById(R.id.imgDuck1);
         imgDuck2 = findViewById(R.id.imgDuck2);
         imgDuck3 = findViewById(R.id.imgDuck3);
-        Button btnReset = findViewById(R.id.btnReset);
 
         accountManager = AccountManager.getInstance(this);
-
-        btnReset.setOnClickListener(v -> resetRace());
-
-        //Khi ô được focus (người dùng nhấn vào), nếu giá trị đang là "0" thì xóa đi
-        setupBetEditText(edtBetDuck1);
-        setupBetEditText(edtBetDuck2);
-        setupBetEditText(edtBetDuck3);
 
         SESSION_USERNAME = getIntent().getStringExtra("username");
         SESSION_BALANCE = getIntent().getIntExtra("balance", 0);
@@ -521,6 +463,9 @@ public class RacingActivity extends AppCompatActivity {
 
         // Start race button
         btnStart.setOnClickListener(v -> startRace());
+
+        // Reset race button
+        btnReset.setOnClickListener(v -> resetRace());
     }
 
     @Override

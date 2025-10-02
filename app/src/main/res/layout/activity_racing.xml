@@ -11,8 +11,8 @@
     tools:context=".RacingActivity">
 
     <FrameLayout
-        android:layout_width="match_parent"
-        style="@style/HeaderSize">
+        style="@style/HeaderSize"
+        android:layout_width="match_parent">
 
         <!-- Title -->
         <TextView
@@ -32,14 +32,14 @@
         <!-- Money -->
         <Button
             android:id="@+id/btnMoney"
+            style="@style/MoneyButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:backgroundTint="#FEEA66"
             android:text="$0"
             android:textColor="#fb8b24"
             android:textSize="20sp"
-            android:textStyle="bold"
-            style="@style/MoneyButton"/>
+            android:textStyle="bold" />
 
     </FrameLayout>
 
@@ -61,21 +61,20 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content">
 
-                <EditText
-                    android:id="@+id/edtBetDuck1"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:hint="0"
-                    android:inputType="number"
-                    android:maxLines="1"
-                    android:minWidth="40dp" />
-
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="$"
                     android:textSize="18dp"
                     android:textStyle="bold" />
+
+                <EditText
+                    android:id="@+id/edtBetDuck1"
+                    android:layout_width="52dp"
+                    android:layout_height="wrap_content"
+                    android:hint="0"
+                    android:inputType="number"
+                    android:maxLines="1" />
 
             </LinearLayout>
 
@@ -90,7 +89,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
-                    android:max="100"
+                    android:max="400"
                     android:progress="0" />
 
                 <ImageView
@@ -98,6 +97,7 @@
                     android:layout_width="60dp"
                     android:layout_height="60dp"
                     android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="-28dp"
                     android:src="@drawable/duck1" />
 
             </FrameLayout>
@@ -116,21 +116,20 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content">
 
-                <EditText
-                    android:id="@+id/edtBetDuck2"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:hint="0"
-                    android:inputType="number"
-                    android:maxLines="1"
-                    android:minWidth="40dp" />
-
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="$"
                     android:textSize="18dp"
                     android:textStyle="bold" />
+
+                <EditText
+                    android:id="@+id/edtBetDuck2"
+                    android:layout_width="52dp"
+                    android:layout_height="wrap_content"
+                    android:hint="0"
+                    android:inputType="number"
+                    android:maxLines="1" />
 
             </LinearLayout>
 
@@ -145,7 +144,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
-                    android:max="100"
+                    android:max="400"
                     android:progress="0" />
 
                 <ImageView
@@ -153,6 +152,7 @@
                     android:layout_width="60dp"
                     android:layout_height="60dp"
                     android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="-28dp"
                     android:src="@drawable/duck1" />
 
             </FrameLayout>
@@ -171,21 +171,20 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content">
 
-                <EditText
-                    android:id="@+id/edtBetDuck3"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:hint="0"
-                    android:inputType="number"
-                    android:maxLines="1"
-                    android:minWidth="40dp" />
-
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="$"
                     android:textSize="18dp"
                     android:textStyle="bold" />
+
+                <EditText
+                    android:id="@+id/edtBetDuck3"
+                    android:layout_width="52dp"
+                    android:layout_height="wrap_content"
+                    android:hint="0"
+                    android:inputType="number"
+                    android:maxLines="1" />
 
             </LinearLayout>
 
@@ -200,7 +199,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
-                    android:max="100"
+                    android:max="400"
                     android:progress="0" />
 
                 <ImageView
@@ -208,6 +207,7 @@
                     android:layout_width="60dp"
                     android:layout_height="60dp"
                     android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="-28dp"
                     android:src="@drawable/duck1" />
 
             </FrameLayout>
@@ -256,7 +256,7 @@
         android:layout_height="wrap_content"
         android:gravity="center"
         android:padding="8dp"
-        android:text="Result:"
+        android:text=""
         android:textStyle="bold" />
 
 </LinearLayout>
