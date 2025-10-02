@@ -85,6 +85,7 @@ public class RacingActivity extends AppCompatActivity {
 
         btnStart.setEnabled(false);
         btnReset.setEnabled(false);
+        btnMoney.setEnabled(false); // Vô hiệu hóa nút btnMoney khi bắt đầu cuộc đua
 
         // Reset race state
         val1 = val2 = val3 = 0;
@@ -261,6 +262,9 @@ public class RacingActivity extends AppCompatActivity {
         // Update money display
         btnMoney.setText("$" + newBalance);
 
+        // Kích hoạt lại nút btnMoney khi cuộc đua kết thúc
+        btnMoney.setEnabled(true);
+
         // Show popup
         showResultPopup(winner, totalAmount, betDuck1, betDuck2, betDuck3, newBalance);
 
@@ -414,6 +418,7 @@ public class RacingActivity extends AppCompatActivity {
 
         // Cho phép đặt cược lại và bật nút Start
         setBettingEnabled(true);
+        btnMoney.setEnabled(true);
     }
 
     @Override
