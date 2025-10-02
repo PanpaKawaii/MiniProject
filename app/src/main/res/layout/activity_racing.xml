@@ -10,180 +10,233 @@
     android:padding="16dp"
     tools:context=".RacingActivity">
 
-    <!-- Money display -->
-    <Button
-        android:id="@+id/btnMoney"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="end"
-        android:backgroundTint="#FEEA66"
-        android:text="$0"
-        android:textColor="#fb8b24"
-        android:textSize="20sp"
-        android:textStyle="bold" />
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="100dp">
+
+        <!-- Money -->
+        <Button
+            android:id="@+id/btnMoney"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:backgroundTint="#FEEA66"
+            android:text="$0"
+            android:textColor="#fb8b24"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            style="@style/MoneyButton"/>
+
+        <!-- Title -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:gravity="center"
+            android:shadowColor="#fbfb8b24"
+            android:shadowDx="8"
+            android:shadowDy="8"
+            android:shadowRadius="2"
+            android:text="Flash Duck"
+            android:textColor="#ffd700"
+            android:textSize="60sp"
+            android:textStyle="bold|italic" />
+
+    </FrameLayout>
 
     <!-- Race tracks -->
-    <!-- Đường chạy + vịt 1 -->
     <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        style="@style/OrientationStyle2"
         android:gravity="center"
-        android:orientation="horizontal">
+        android:orientation="vertical">
 
-        <EditText
-            android:id="@+id/edtBetDuck1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:hint="0"
-            android:inputType="number"
-            android:maxLines="1"
-            android:minWidth="60dp" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginRight="12dp"
-            android:text="$"
-            android:textSize="18dp"
-            android:textStyle="bold" />
-
-        <FrameLayout
+        <!-- Đường chạy + vịt 1 -->
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="horizontal">
 
-            <ProgressBar
-                android:id="@+id/progressBar1"
-                style="?android:attr/progressBarStyleHorizontal"
+            <LinearLayout
+                style="@style/RotateInput"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <EditText
+                    android:id="@+id/edtBetDuck1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:hint="0"
+                    android:inputType="number"
+                    android:maxLines="1"
+                    android:minWidth="40dp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="$"
+                    android:textSize="18dp"
+                    android:textStyle="bold" />
+
+            </LinearLayout>
+
+            <FrameLayout
+                style="@style/FrameMargin"
                 android:layout_width="match_parent"
-                android:layout_height="20dp"
-                android:layout_gravity="center_vertical"
-                android:max="100"
-                android:progress="0" />
+                android:layout_height="wrap_content">
 
-            <ImageView
-                android:id="@+id/imgDuck1"
-                android:layout_width="60dp"
-                android:layout_height="60dp"
-                android:layout_gravity="center_vertical"
-                android:src="@drawable/duck1" />
+                <ProgressBar
+                    android:id="@+id/progressBar1"
+                    style="@style/CustomProgressBar"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:max="100"
+                    android:progress="0" />
 
-        </FrameLayout>
+                <ImageView
+                    android:id="@+id/imgDuck1"
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
+                    android:layout_gravity="center_vertical"
+                    android:src="@drawable/duck1" />
+
+            </FrameLayout>
+
+        </LinearLayout>
+
+        <!-- Đường chạy + vịt 2 -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                style="@style/RotateInput"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <EditText
+                    android:id="@+id/edtBetDuck2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:hint="0"
+                    android:inputType="number"
+                    android:maxLines="1"
+                    android:minWidth="40dp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="$"
+                    android:textSize="18dp"
+                    android:textStyle="bold" />
+
+            </LinearLayout>
+
+            <FrameLayout
+                style="@style/FrameMargin"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <ProgressBar
+                    android:id="@+id/progressBar2"
+                    style="@style/CustomProgressBar"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:max="100"
+                    android:progress="0" />
+
+                <ImageView
+                    android:id="@+id/imgDuck2"
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
+                    android:layout_gravity="center_vertical"
+                    android:src="@drawable/duck1" />
+
+            </FrameLayout>
+
+        </LinearLayout>
+
+        <!-- Đường chạy + vịt 3 -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                style="@style/RotateInput"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <EditText
+                    android:id="@+id/edtBetDuck3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:hint="0"
+                    android:inputType="number"
+                    android:maxLines="1"
+                    android:minWidth="40dp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="$"
+                    android:textSize="18dp"
+                    android:textStyle="bold" />
+
+            </LinearLayout>
+
+            <FrameLayout
+                style="@style/FrameMargin"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <ProgressBar
+                    android:id="@+id/progressBar3"
+                    style="@style/CustomProgressBar"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:max="100"
+                    android:progress="0" />
+
+                <ImageView
+                    android:id="@+id/imgDuck3"
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
+                    android:layout_gravity="center_vertical"
+                    android:src="@drawable/duck1" />
+
+            </FrameLayout>
+
+        </LinearLayout>
 
     </LinearLayout>
 
-    <!-- Đường chạy + vịt 2 -->
     <LinearLayout
-        android:layout_width="match_parent"
+        android:layout_width="360dp"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:orientation="horizontal">
-
-        <EditText
-            android:id="@+id/edtBetDuck2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:hint="0"
-            android:inputType="number"
-            android:maxLines="1"
-            android:minWidth="60dp" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginRight="12dp"
-            android:text="$"
-            android:textSize="18dp"
-            android:textStyle="bold" />
-
-        <FrameLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <ProgressBar
-                android:id="@+id/progressBar2"
-                style="?android:attr/progressBarStyleHorizontal"
-                android:layout_width="match_parent"
-                android:layout_height="20dp"
-                android:layout_gravity="center_vertical"
-                android:max="100"
-                android:progress="0" />
-
-            <ImageView
-                android:id="@+id/imgDuck2"
-                android:layout_width="60dp"
-                android:layout_height="60dp"
-                android:layout_gravity="center_vertical"
-                android:src="@drawable/duck1" />
-
-        </FrameLayout>
-
-    </LinearLayout>
-
-    <!-- Đường chạy + vịt 3 -->
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:orientation="horizontal">
-
-        <EditText
-            android:id="@+id/edtBetDuck3"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:hint="0"
-            android:inputType="number"
-            android:maxLines="1"
-            android:minWidth="60dp" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginRight="12dp"
-            android:text="$"
-            android:textSize="18dp"
-            android:textStyle="bold" />
-
-        <FrameLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <ProgressBar
-                android:id="@+id/progressBar3"
-                style="?android:attr/progressBarStyleHorizontal"
-                android:layout_width="match_parent"
-                android:layout_height="20dp"
-                android:layout_gravity="center_vertical"
-                android:max="100"
-                android:progress="0" />
-
-            <ImageView
-                android:id="@+id/imgDuck3"
-                android:layout_width="60dp"
-                android:layout_height="60dp"
-                android:layout_gravity="center_vertical"
-                android:src="@drawable/duck1" />
-
-        </FrameLayout>
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:minWidth="360dp"
         android:orientation="horizontal"
-        android:weightSum="7">
+        android:weightSum="9">
 
         <Button
             android:id="@+id/btnReset"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginRight="40dp"
-            android:layout_weight="2"
+            android:layout_weight="3"
             android:backgroundTint="#80fdbc7f"
             android:text="RESET"
             android:textStyle="bold"
             app:cornerRadius="8dp" />
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_weight="1" />
 
         <Button
             android:id="@+id/btnStart"

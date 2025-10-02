@@ -1,0 +1,28 @@
+<resources>
+    <style name="OrientationStyle">
+        <item name="android:orientation">vertical</item>
+    </style>
+    <style name="OrientationStyle2">
+        <item name="android:orientation">horizontal</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:rotation">0</item>
+        <item name="android:layout_marginBottom">0dp</item>
+    </style>
+    <style name="RotateInput">
+        <item name="android:rotation">0</item>
+    </style>
+    <style name="MoneyButton">
+        <item name="android:layout_gravity">top|end</item>
+    </style>
+    <style name="FrameMargin">
+        <item name="android:layout_marginHorizontal">28dp</item>
+    </style>
+    <style name="CustomProgressBar" parent="@android:style/Widget.ProgressBar.Horizontal">
+        <item name="android:progressDrawable">@drawable/custom_progress_drawable</item>
+        <item name="android:minHeight">10dp</item>
+        <item name="android:maxHeight">10dp</item>
+        <item name="android:indeterminateOnly">false</item>
+        <item name="android:layout_marginHorizontal">20dp</item>
+    </style>
+</resources>
