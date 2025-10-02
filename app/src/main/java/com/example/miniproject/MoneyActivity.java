@@ -18,6 +18,8 @@ public class MoneyActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_money);
 
+        MusicManager.stopBackground();
+
         tvBalance = findViewById(R.id.textViewBalance);
         etBankAccount = findViewById(R.id.editTextBankAccount);
         etAmount = findViewById(R.id.editTextAmount);
@@ -41,6 +43,7 @@ public class MoneyActivity extends AppCompatActivity {
 
                 int amount = Integer.parseInt(amountStr);
                 int newBalance = accountManager.getMoney(username) + amount;
+                MusicManager.playEffect(MoneyActivity.this, R.raw.upmoney);
                 tvBalance.setText("$" + accountManager.updateBalance(username, newBalance));
             }
         });

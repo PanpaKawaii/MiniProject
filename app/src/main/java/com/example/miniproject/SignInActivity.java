@@ -41,6 +41,7 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
         tvPasswordErrorSignIn = findViewById(R.id.tvPasswordErrorSignIn);
         tvSignInError = findViewById(R.id.tvSignInError);
 
+
         // Initialize AccountManager
         accountManager = AccountManager.getInstance(this);
 

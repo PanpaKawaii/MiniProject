@@ -106,7 +106,7 @@ public class RacingActivity extends AppCompatActivity {
         MusicManager.playEffect(this, R.raw.readytorace);
 
         handler.postDelayed(new Runnable() {
-            int count = 3;
+            int count = 2;
 
             @Override
             public void run() {
@@ -288,6 +288,9 @@ public class RacingActivity extends AppCompatActivity {
         TextView tvTotal = popupView.findViewById(R.id.tvTotal);
         Button btnClose = popupView.findViewById(R.id.btnClose);
 
+        MusicManager.stopBackground();
+        MusicManager.playEffect(this, R.raw.endrace);
+
         tvA.setText("Duck 1: " + (winner == 1 ? " +" : " -") + betDuck1);
         tvB.setText("Duck 2: " + (winner == 2 ? " +" : " -") + betDuck2);
         tvC.setText("Duck 3: " + (winner == 3 ? " +" : " -") + betDuck3);
@@ -317,7 +320,12 @@ public class RacingActivity extends AppCompatActivity {
         }
         dialog.show();
 
-        btnClose.setOnClickListener(v -> dialog.dismiss());
+        btnClose.setOnClickListener(v -> {
+            dialog.dismiss();
+            MusicManager.stopEffect(); // Dừng hiệu ứng âm thanh khi đóng popup
+            MusicManager.playBackground(this, R.raw.backgoundwait);
+        });
+
     }
 
     private void resetBets() {
@@ -400,6 +408,16 @@ public class RacingActivity extends AppCompatActivity {
         edtBetDuck3.setEnabled(enabled);
         btnStart.setEnabled(enabled);
     }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if (!isRunning && !winnerDetermined) {
+            // Chỉ bật nhạc chờ nếu chưa chạy race
+            MusicManager.playBackground(this, R.raw.backgoundwait);
+        }
+    }
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
