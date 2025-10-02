@@ -62,18 +62,18 @@ public class subPopup extends AppCompatActivity {
         // Inflate layout popup_result.xml
         View popupView = getLayoutInflater().inflate(R.layout.popup_result, null);
 
-        // Find views & set data
-        TextView tvA = popupView.findViewById(R.id.tvA);
-        TextView tvB = popupView.findViewById(R.id.tvB);
-        TextView tvC = popupView.findViewById(R.id.tvC);
+//        // Find views & set data
+//        TextView tvA = popupView.findViewById(R.id.tvA);
+//        TextView tvB = popupView.findViewById(R.id.tvB);
+//        TextView tvC = popupView.findViewById(R.id.tvC);
         TextView tvWin = popupView.findViewById(R.id.tvWin);
         TextView tvTotal = popupView.findViewById(R.id.tvTotal);
         Button btnClose = popupView.findViewById(R.id.btnClose);
 
         String fa = fmt(a), fb = fmt(b), fc = fmt(c), fd = fmt(d);
-        tvA.setText("A = " + fa);
-        tvB.setText("B = " + fb);
-        tvC.setText("C = " + fc);
+//        tvA.setText("A = " + fa);
+//        tvB.setText("B = " + fb);
+//        tvC.setText("C = " + fc);
         String winLabel;
         final double EPS = 1e-9;
         double winDisplayValue;

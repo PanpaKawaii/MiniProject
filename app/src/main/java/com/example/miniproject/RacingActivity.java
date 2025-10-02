@@ -315,7 +315,7 @@ public class RacingActivity extends AppCompatActivity {
             result = "+$" + winDisplayValue;
         }
         tvWin.setText("Result: " + result);
-        tvTotal.setText("NEW BALANCE: $" + newBalance);
+        tvTotal.setText("BALANCE: $" + newBalance);
 
         AlertDialog dialog = new AlertDialog.Builder(this)
                 .setView(popupView)
