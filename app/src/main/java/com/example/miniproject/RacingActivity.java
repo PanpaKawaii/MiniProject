@@ -55,7 +55,8 @@ public class RacingActivity extends AppCompatActivity {
         Intent intent = new Intent(this, MoneyActivity.class);
         intent.putExtra("username", SESSION_USERNAME);
         intent.putExtra("balance", SESSION_BALANCE);
-        startActivity(intent);
+//        startActivity(intent);
+        startActivityForResult(intent, 100); // mở và chờ kết quả
     }
 
     private void startRace() {
@@ -474,7 +475,11 @@ public class RacingActivity extends AppCompatActivity {
             // Chỉ bật nhạc chờ nếu chưa chạy race
             MusicManager.playBackground(this, R.raw.backgoundwait);
         }
+        // luôn lấy balance mới nhất khi quay lại trang
+        int balance = accountManager.getMoney(SESSION_USERNAME);
+        btnMoney.setText("$" + balance);
     }
+
 
 
     @Override
