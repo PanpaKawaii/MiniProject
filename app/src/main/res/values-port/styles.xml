@@ -1,4 +1,7 @@
 <resources>
+    <style name="Title">
+        <item name="android:textSize">60sp</item>
+    </style>
     <style name="OrientationStyle">
         <item name="android:orientation">horizontal</item>
     </style>
