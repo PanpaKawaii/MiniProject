@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="300dp"
-    android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="360dp"
+    android:layout_height="wrap_content"
     android:background="@drawable/popup_background"
     android:orientation="vertical"
     android:padding="12dp">
@@ -14,12 +14,12 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Hướng dẫn sử dụng"
-            android:textColor="#000000"
-            android:textSize="18sp"
-            android:textStyle="bold"
             android:layout_centerHorizontal="true"
-            android:layout_marginBottom="8dp" />
+            android:layout_marginBottom="8dp"
+            android:text="Instruction"
+            android:textColor="#000000"
+            android:textSize="24sp"
+            android:textStyle="bold" />
 
         <ImageButton
             android:id="@+id/btnCloseGuideX"
@@ -27,7 +27,7 @@
             android:layout_height="24dp"
             android:layout_alignParentEnd="true"
             android:background="@null"
-            android:contentDescription="Đóng hướng dẫn"
+            android:contentDescription="Close"
             android:src="@android:drawable/ic_menu_close_clear_cancel"
             app:tint="#333333" />
 
@@ -38,36 +38,101 @@
         android:layout_height="wrap_content"
         android:maxHeight="300dp">
 
-        <TextView
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:padding="8dp"
-            android:text="Chào mừng bạn đến với Flash Duck!\n\n
-        1. **Đăng nhập**: Nhấn nút LOGIN để truy cập vào tài khoản của bạn.\n
-        2. **Đăng ký**: Nhấn nút REGISTER để tạo tài khoản mới.\n
-        3. **Nạp tiền**: Sau khi đăng nhập, bạn có thể nạp tiền vào tài khoản qua màn hình MoneyActivity.\n
-           - Nhập số tài khoản ngân hàng và số tiền cần nạp.\n
-           - Số dư tối đa là 999,999,999.\n
-           - Nếu nạp thất bại, bạn sẽ nghe âm thanh báo lỗi.\n
-        4. **Thoát**: Nhấn nút X để thoát ứng dụng.\n\n
-        Lưu ý:\n
-        - Đảm bảo nhập đúng thông tin để tránh lỗi.\n
-        - Liên hệ hỗ trợ nếu gặp sự cố: support@flashduck.com"
-        android:textColor="#333333"
-        android:textSize="14sp" />
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="8dp"
+                android:text="Welcome to Flash Duck!\n\n
+1. Login: Tap the LOGIN button to access your account.\n
+2. Register: Tap the REGISTER button to create a new account and receive $1000.\n
+3. Deposit: After logging in, you can deposit money by tapping your current balance.\n
+   - Enter your bank account number and the amount you wish to deposit.\n
+   - The maximum balance is 999,999,999.\n
+   - If the deposit fails, you will hear an error sound.\n
+4. Betting: You can place bets on your favorite ducks.\n
+   - Enter the betting amount for each duck; you can bet on multiple ducks at once.\n
+   - Press START to begin the race. You must bet on at least one duck.\n
+   - Press RESET to prepare for a new race.\n\n
+Note:\n
+- Make sure to enter the correct information to avoid errors.\n
+- Contact support if you encounter any issues: support@flashduck.com\n"
+
+                android:textColor="#333333"
+                android:textSize="14sp" />
+
+            <View
+                android:layout_width="match_parent"
+                android:background="#666"
+                android:layout_height="2dp"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="8dp"
+                android:text="Chào mừng bạn đến với Flash Duck!\n\n
+1. Đăng nhập: Nhấn nút LOGIN để truy cập tài khoản của bạn.\n
+2. Đăng ký: Nhấn nút REGISTER để tạo tài khoản mới, bạn sẽ nhận được $1000.\n
+3. Nạp tiền: Sau khi đăng nhập, bạn có thể nạp tiền vào tài khoản bằng cách nhấn vào số tiền hiện tại của mình.\n
+   - Nhập số tài khoản ngân hàng và số tiền cần nạp.\n
+   - Số dư tối đa là 999,999,999.\n
+   - Nếu nạp thất bại, bạn sẽ nghe âm thanh báo lỗi.\n
+4. Đặt cược: Bạn có thể đặt cược vào chú vịt mà mình yêu thích.\n
+   - Nhập số tiền đặt cược cho mỗi chú vịt; bạn có thể đặt cược vào nhiều vịt cùng lúc.\n
+   - Bấm START để bắt đầu đua vịt. Bạn phải đặt cược vào ít nhất một chú vịt.\n
+   - Bấm RESET để chuẩn bị cho cuộc đua mới.\n\n
+Lưu ý:\n
+- Đảm bảo nhập đúng thông tin để tránh lỗi.\n
+- Liên hệ hỗ trợ nếu gặp sự cố: support@flashduck.com\n"
+
+                android:textColor="#333333"
+                android:textSize="14sp" />
+
+            <View
+                android:layout_width="match_parent"
+                android:background="#666"
+                android:layout_height="2dp"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="8dp"
+                android:text="Flash Duckへようこそ！\n\n
+1. **ログイン**：LOGINボタンをタップしてアカウントにアクセスします。\n
+2. **登録**：REGISTERボタンをタップして新しいアカウントを作成し、$1000を受け取ります。\n
+3. **入金**：ログイン後、現在の残高をタップして入金できます。\n
+   - 銀行口座番号と入金額を入力してください。\n
+   - 最大残高は999,999,999です。\n
+   - 入金に失敗すると、エラー音が鳴ります。\n
+4. **ベット**：お気に入りのアヒルに賭けることができます。\n
+   - 各アヒルに賭け金額を入力し、複数のアヒルに同時に賭けることもできます。\n
+   - STARTを押してレースを開始します。少なくとも1羽のアヒルに賭ける必要があります。\n
+   - RESETを押して新しいレースの準備をします。\n\n
+注意:\n
+- 情報を正確に入力してエラーを防いでください。\n
+- 問題が発生した場合は、サポートまでご連絡ください: support@flashduck.com\n"
+
+                android:textColor="#333333"
+                android:textSize="14sp" />
+
+            <Button
+                android:id="@+id/btnCloseGuide"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="8dp"
+                android:backgroundTint="#fb8b24"
+                android:text="GOT IT!"
+                android:textSize="14sp"
+                android:textStyle="bold"
+                app:cornerRadius="8dp" />
+
+        </LinearLayout>
 
     </ScrollView>
-
-    <Button
-        android:id="@+id/btnCloseGuide"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginTop="8dp"
-        android:backgroundTint="#fb8b24"
-        android:text="Đóng"
-        android:textStyle="bold"
-        android:textSize="14sp"
-        app:cornerRadius="8dp" />
 
 </LinearLayout>

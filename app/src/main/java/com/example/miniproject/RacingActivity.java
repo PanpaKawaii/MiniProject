@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -28,7 +29,8 @@ public class RacingActivity extends AppCompatActivity {
 
     ProgressBar pb1, pb2, pb3;
     TextView tvResult;
-    Button btnMoney, btnStart, btnReset;
+    Button btnMoney, btnStart, btnReset, btnLogout;
+    ImageButton btnGuide;
     ImageView imgDuck1, imgDuck2, imgDuck3;
     EditText edtBetDuck1, edtBetDuck2, edtBetDuck3;
 
@@ -421,6 +423,29 @@ public class RacingActivity extends AppCompatActivity {
         btnMoney.setEnabled(true);
     }
 
+    private void showGuidePopup() {
+        // Inflate layout popup_guide.xml
+        View popupView = getLayoutInflater().inflate(R.layout.popup_guide, null);
+
+        // Find close buttons
+        Button btnCloseGuide = popupView.findViewById(R.id.btnCloseGuide);
+        ImageButton btnCloseGuideX = popupView.findViewById(R.id.btnCloseGuideX);
+
+        // Build dialog with transparent background
+        AlertDialog dialog = new AlertDialog.Builder(this)
+                .setView(popupView)
+                .setCancelable(true)
+                .create();
+        if (dialog.getWindow() != null) {
+            dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        }
+        dialog.show();
+
+        // Handle close button clicks
+        btnCloseGuide.setOnClickListener(v -> dialog.dismiss());
+        btnCloseGuideX.setOnClickListener(v -> dialog.dismiss());
+    }
+
     @Override
     protected void onResume() {
         super.onResume();
@@ -459,6 +484,12 @@ public class RacingActivity extends AppCompatActivity {
 
         SESSION_USERNAME = getIntent().getStringExtra("username");
         SESSION_BALANCE = getIntent().getIntExtra("balance", 0);
+
+
+        btnLogout = findViewById(R.id.btnLogout);
+        btnLogout.setOnClickListener(v -> finish());
+        btnGuide = findViewById(R.id.btnGuide);
+        btnGuide.setOnClickListener(v -> showGuidePopup());
 
         // Initialize money display
         btnMoney.setText("$" + SESSION_BALANCE);

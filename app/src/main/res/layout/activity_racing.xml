@@ -11,252 +11,297 @@
     tools:context=".RacingActivity">
 
     <FrameLayout
-        style="@style/HeaderSize"
-        android:layout_width="match_parent">
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
-        <!-- Title -->
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
             android:gravity="center"
-            android:shadowColor="#fbfb8b24"
-            android:shadowDx="8"
-            android:shadowDy="8"
-            android:shadowRadius="2"
-            android:text="Flash Duck"
-            android:textColor="#ffd700"
-            android:textSize="60sp"
-            android:textStyle="bold|italic" />
+            android:orientation="vertical">
 
-        <!-- Money -->
-        <Button
-            android:id="@+id/btnMoney"
-            style="@style/MoneyButton"
+            <FrameLayout
+                style="@style/HeaderSize"
+                android:layout_width="match_parent">
+
+                <!-- Guide -->
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center">
+
+                    <Button
+                        android:id="@+id/btnLogout"
+                        android:layout_width="60dp"
+                        android:layout_height="32dp"
+                        android:layout_marginRight="12dp"
+                        android:backgroundTint="#66666666"
+                        android:padding="0dp"
+                        android:text="Logout" />
+
+                    <ImageButton
+                        android:id="@+id/btnGuide"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:background="@drawable/circle_button"
+                        android:contentDescription="Instruction"
+                        android:src="@android:drawable/ic_menu_help"
+                        app:tint="#FFFFFF" />
+
+                </LinearLayout>
+
+                <!-- Money -->
+                <Button
+                    android:id="@+id/btnMoney"
+                    style="@style/MoneyButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:backgroundTint="#FEEA66"
+                    android:text="$0"
+                    android:textColor="#fb8b24"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
+
+                <!-- Title -->
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:shadowColor="#fbfb8b24"
+                    android:shadowDx="8"
+                    android:shadowDy="8"
+                    android:shadowRadius="2"
+                    android:text="Flash Duck"
+                    android:textColor="#ffd700"
+                    android:textSize="60sp"
+                    android:textStyle="bold|italic" />
+
+            </FrameLayout>
+
+            <!-- Race tracks -->
+            <LinearLayout
+                style="@style/OrientationStyle2"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <!-- Đường chạy + vịt 1 -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:orientation="horizontal">
+
+                    <LinearLayout
+                        style="@style/RotateInput"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="$"
+                            android:textSize="18dp"
+                            android:textStyle="bold" />
+
+                        <EditText
+                            android:id="@+id/edtBetDuck1"
+                            android:layout_width="52dp"
+                            android:layout_height="wrap_content"
+                            android:hint="0"
+                            android:inputType="number"
+                            android:maxLines="1" />
+
+                    </LinearLayout>
+
+                    <FrameLayout
+                        style="@style/FrameMargin"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <ProgressBar
+                            android:id="@+id/progressBar1"
+                            style="@style/CustomProgressBar"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
+                            android:max="400"
+                            android:progress="0" />
+
+                        <ImageView
+                            android:id="@+id/imgDuck1"
+                            android:layout_width="60dp"
+                            android:layout_height="60dp"
+                            android:layout_gravity="center_vertical"
+                            android:layout_marginLeft="-28dp"
+                            android:src="@drawable/duck1" />
+
+                    </FrameLayout>
+
+                </LinearLayout>
+
+                <!-- Đường chạy + vịt 2 -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:orientation="horizontal">
+
+                    <LinearLayout
+                        style="@style/RotateInput"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="$"
+                            android:textSize="18dp"
+                            android:textStyle="bold" />
+
+                        <EditText
+                            android:id="@+id/edtBetDuck2"
+                            android:layout_width="52dp"
+                            android:layout_height="wrap_content"
+                            android:hint="0"
+                            android:inputType="number"
+                            android:maxLines="1" />
+
+                    </LinearLayout>
+
+                    <FrameLayout
+                        style="@style/FrameMargin"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <ProgressBar
+                            android:id="@+id/progressBar2"
+                            style="@style/CustomProgressBar"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
+                            android:max="400"
+                            android:progress="0" />
+
+                        <ImageView
+                            android:id="@+id/imgDuck2"
+                            android:layout_width="60dp"
+                            android:layout_height="60dp"
+                            android:layout_gravity="center_vertical"
+                            android:layout_marginLeft="-28dp"
+                            android:src="@drawable/duck1" />
+
+                    </FrameLayout>
+
+                </LinearLayout>
+
+                <!-- Đường chạy + vịt 3 -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:orientation="horizontal">
+
+                    <LinearLayout
+                        style="@style/RotateInput"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="$"
+                            android:textSize="18dp"
+                            android:textStyle="bold" />
+
+                        <EditText
+                            android:id="@+id/edtBetDuck3"
+                            android:layout_width="52dp"
+                            android:layout_height="wrap_content"
+                            android:hint="0"
+                            android:inputType="number"
+                            android:maxLines="1" />
+
+                    </LinearLayout>
+
+                    <FrameLayout
+                        style="@style/FrameMargin"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <ProgressBar
+                            android:id="@+id/progressBar3"
+                            style="@style/CustomProgressBar"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
+                            android:max="400"
+                            android:progress="0" />
+
+                        <ImageView
+                            android:id="@+id/imgDuck3"
+                            android:layout_width="60dp"
+                            android:layout_height="60dp"
+                            android:layout_gravity="center_vertical"
+                            android:layout_marginLeft="-28dp"
+                            android:src="@drawable/duck1" />
+
+                    </FrameLayout>
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="360dp"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:weightSum="9">
+
+                <Button
+                    android:id="@+id/btnReset"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="3"
+                    android:backgroundTint="#80fdbc7f"
+                    android:text="RESET"
+                    android:textStyle="bold"
+                    app:cornerRadius="8dp" />
+
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_weight="1" />
+
+                <Button
+                    android:id="@+id/btnStart"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="5"
+                    android:backgroundTint="#fb8b24"
+                    android:text="START"
+                    android:textStyle="bold"
+                    app:cornerRadius="8dp" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/tvResult"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:backgroundTint="#FEEA66"
-            android:text="$0"
+            android:layout_gravity="center"
+            android:padding="8dp"
             android:textColor="#fb8b24"
-            android:textSize="20sp"
-            android:textStyle="bold" />
+            android:shadowColor="#333"
+            android:textStyle="bold|italic"
+            android:shadowDx="28"
+            android:shadowDy="28"
+            android:shadowRadius="4"
+            android:textSize="160sp"
+            android:text="" />
 
     </FrameLayout>
-
-    <!-- Race tracks -->
-    <LinearLayout
-        style="@style/OrientationStyle2"
-        android:gravity="center"
-        android:orientation="vertical">
-
-        <!-- Đường chạy + vịt 1 -->
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:orientation="horizontal">
-
-            <LinearLayout
-                style="@style/RotateInput"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="$"
-                    android:textSize="18dp"
-                    android:textStyle="bold" />
-
-                <EditText
-                    android:id="@+id/edtBetDuck1"
-                    android:layout_width="52dp"
-                    android:layout_height="wrap_content"
-                    android:hint="0"
-                    android:inputType="number"
-                    android:maxLines="1" />
-
-            </LinearLayout>
-
-            <FrameLayout
-                style="@style/FrameMargin"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-                <ProgressBar
-                    android:id="@+id/progressBar1"
-                    style="@style/CustomProgressBar"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
-                    android:max="400"
-                    android:progress="0" />
-
-                <ImageView
-                    android:id="@+id/imgDuck1"
-                    android:layout_width="60dp"
-                    android:layout_height="60dp"
-                    android:layout_gravity="center_vertical"
-                    android:layout_marginLeft="-28dp"
-                    android:src="@drawable/duck1" />
-
-            </FrameLayout>
-
-        </LinearLayout>
-
-        <!-- Đường chạy + vịt 2 -->
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:orientation="horizontal">
-
-            <LinearLayout
-                style="@style/RotateInput"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="$"
-                    android:textSize="18dp"
-                    android:textStyle="bold" />
-
-                <EditText
-                    android:id="@+id/edtBetDuck2"
-                    android:layout_width="52dp"
-                    android:layout_height="wrap_content"
-                    android:hint="0"
-                    android:inputType="number"
-                    android:maxLines="1" />
-
-            </LinearLayout>
-
-            <FrameLayout
-                style="@style/FrameMargin"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-                <ProgressBar
-                    android:id="@+id/progressBar2"
-                    style="@style/CustomProgressBar"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
-                    android:max="400"
-                    android:progress="0" />
-
-                <ImageView
-                    android:id="@+id/imgDuck2"
-                    android:layout_width="60dp"
-                    android:layout_height="60dp"
-                    android:layout_gravity="center_vertical"
-                    android:layout_marginLeft="-28dp"
-                    android:src="@drawable/duck1" />
-
-            </FrameLayout>
-
-        </LinearLayout>
-
-        <!-- Đường chạy + vịt 3 -->
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:orientation="horizontal">
-
-            <LinearLayout
-                style="@style/RotateInput"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="$"
-                    android:textSize="18dp"
-                    android:textStyle="bold" />
-
-                <EditText
-                    android:id="@+id/edtBetDuck3"
-                    android:layout_width="52dp"
-                    android:layout_height="wrap_content"
-                    android:hint="0"
-                    android:inputType="number"
-                    android:maxLines="1" />
-
-            </LinearLayout>
-
-            <FrameLayout
-                style="@style/FrameMargin"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-                <ProgressBar
-                    android:id="@+id/progressBar3"
-                    style="@style/CustomProgressBar"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
-                    android:max="400"
-                    android:progress="0" />
-
-                <ImageView
-                    android:id="@+id/imgDuck3"
-                    android:layout_width="60dp"
-                    android:layout_height="60dp"
-                    android:layout_gravity="center_vertical"
-                    android:layout_marginLeft="-28dp"
-                    android:src="@drawable/duck1" />
-
-            </FrameLayout>
-
-        </LinearLayout>
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="360dp"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:orientation="horizontal"
-        android:weightSum="9">
-
-        <Button
-            android:id="@+id/btnReset"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="3"
-            android:backgroundTint="#80fdbc7f"
-            android:text="RESET"
-            android:textStyle="bold"
-            app:cornerRadius="8dp" />
-
-        <View
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:layout_weight="1" />
-
-        <Button
-            android:id="@+id/btnStart"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="5"
-            android:backgroundTint="#fb8b24"
-            android:text="START"
-            android:textStyle="bold"
-            app:cornerRadius="8dp" />
-
-    </LinearLayout>
-
-    <TextView
-        android:id="@+id/tvResult"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:padding="8dp"
-        android:text=""
-        android:textStyle="bold" />
 
 </LinearLayout>

@@ -6,6 +6,7 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.TextView;
 // Removed Toast import as it's no longer used for validation errors
 
@@ -19,6 +20,7 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
     private EditText etConfirmPassword;
     private TextView tvAlreadyAccount;
     private Button btnSignUp;
+    private ImageButton btnBack;
     private TextView tvUsernameError;
     private TextView tvPasswordError;
     private TextView tvConfirmPasswordError;
@@ -46,6 +48,9 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
         tvPasswordError = findViewById(R.id.tvPasswordError);
         tvConfirmPasswordError = findViewById(R.id.tvConfirmPasswordError);
         tvSignUpError = findViewById(R.id.tvSignUpError);
+        btnBack = findViewById(R.id.btnBack);
+
+        btnBack.setOnClickListener(v -> finish());
 
         // Initialize AccountManager
         accountManager = AccountManager.getInstance(this);
