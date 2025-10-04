@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="300dp"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@drawable/popup_background"
+    android:orientation="vertical"
+    android:padding="12dp">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Hướng dẫn sử dụng"
+            android:textColor="#000000"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="8dp" />
+
+        <ImageButton
+            android:id="@+id/btnCloseGuideX"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_alignParentEnd="true"
+            android:background="@null"
+            android:contentDescription="Đóng hướng dẫn"
+            android:src="@android:drawable/ic_menu_close_clear_cancel"
+            app:tint="#333333" />
+
+    </RelativeLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:maxHeight="300dp">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="8dp"
+            android:text="Chào mừng bạn đến với Flash Duck!\n\n
+        1. **Đăng nhập**: Nhấn nút LOGIN để truy cập vào tài khoản của bạn.\n
+        2. **Đăng ký**: Nhấn nút REGISTER để tạo tài khoản mới.\n
+        3. **Nạp tiền**: Sau khi đăng nhập, bạn có thể nạp tiền vào tài khoản qua màn hình MoneyActivity.\n
+           - Nhập số tài khoản ngân hàng và số tiền cần nạp.\n
+           - Số dư tối đa là 999,999,999.\n
+           - Nếu nạp thất bại, bạn sẽ nghe âm thanh báo lỗi.\n
+        4. **Thoát**: Nhấn nút X để thoát ứng dụng.\n\n
+        Lưu ý:\n
+        - Đảm bảo nhập đúng thông tin để tránh lỗi.\n
+        - Liên hệ hỗ trợ nếu gặp sự cố: support@flashduck.com"
+        android:textColor="#333333"
+        android:textSize="14sp" />
+
+    </ScrollView>
+
+    <Button
+        android:id="@+id/btnCloseGuide"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="8dp"
+        android:backgroundTint="#fb8b24"
+        android:text="Đóng"
+        android:textStyle="bold"
+        android:textSize="14sp"
+        app:cornerRadius="8dp" />
+
+</LinearLayout>

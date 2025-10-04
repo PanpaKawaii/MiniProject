@@ -1,78 +1,96 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/menu_bg"
-    android:gravity="center"
-    android:orientation="vertical"
     android:padding="16dp"
     tools:context=".MenuActivity">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginBottom="20dp"
-        android:gravity="center"
-        android:shadowColor="#fbfb8b24"
-        android:shadowDx="16"
-        android:shadowDy="12"
-        android:shadowRadius="2"
-        android:text="Flash Duck"
-        android:textColor="#fff"
-        style="@style/Title"
-        android:textStyle="bold|italic" />
+    <!-- Nút hướng dẫn (dấu ? trong hình tròn) -->
+    <ImageButton
+        android:id="@+id/btnGuide"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        android:background="@drawable/circle_button"
+        android:contentDescription="Hướng dẫn"
+        android:src="@android:drawable/ic_menu_help"
+        app:tint="#FFFFFF" />
 
     <LinearLayout
-        android:layout_width="360dp"
-        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:gravity="center"
-        android:orientation="horizontal"
-        android:layout_marginBottom="100dp"
-        android:weightSum="10">
+        android:orientation="vertical">
 
-        <Button
-            android:id="@+id/btnToLogin"
-            android:layout_width="0dp"
+        <TextView
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="4"
-            android:backgroundTint="#28a745"
-            android:text="LOGIN"
-            android:textStyle="bold"
-            app:cornerRadius="8dp" />
+            android:layout_gravity="center_horizontal"
+            android:layout_marginBottom="20dp"
+            android:gravity="center"
+            android:shadowColor="#fbfb8b24"
+            android:shadowDx="16"
+            android:shadowDy="12"
+            android:shadowRadius="2"
+            android:text="Flash Duck"
+            android:textColor="#fff"
+            style="@style/Title"
+            android:textStyle="bold|italic" />
 
-        <View
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:layout_weight="1" />
-
-        <Button
-            android:id="@+id/btnToRegister"
-            android:layout_width="0dp"
+        <LinearLayout
+            android:layout_width="360dp"
             android:layout_height="wrap_content"
-            android:layout_weight="4"
-            android:backgroundTint="#fb8b24"
-            android:text="REGISTER"
-            android:textStyle="bold"
-            app:cornerRadius="8dp" />
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:layout_marginBottom="100dp"
+            android:weightSum="10">
 
-        <View
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:layout_weight="1" />
+            <Button
+                android:id="@+id/btnToLogin"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="4"
+                android:backgroundTint="#28a745"
+                android:text="LOGIN"
+                android:textStyle="bold"
+                app:cornerRadius="8dp" />
 
-        <Button
-            android:id="@+id/btnQuit"
-            android:layout_width="40dp"
-            android:layout_height="wrap_content"
-            android:backgroundTint="#40000000"
-            android:padding="0dp"
-            android:text="X"
-            android:textStyle="bold"
-            app:cornerRadius="8dp" />
+            <View
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_weight="1" />
 
+            <Button
+                android:id="@+id/btnToRegister"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="4"
+                android:backgroundTint="#fb8b24"
+                android:text="REGISTER"
+                android:textStyle="bold"
+                app:cornerRadius="8dp" />
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_weight="1" />
+
+            <Button
+                android:id="@+id/btnQuit"
+                android:layout_width="40dp"
+                android:layout_height="wrap_content"
+                android:backgroundTint="#40000000"
+                android:padding="0dp"
+                android:text="X"
+                android:textStyle="bold"
+                app:cornerRadius="8dp" />
+
+        </LinearLayout>
     </LinearLayout>
 
-</LinearLayout>
+</RelativeLayout>
