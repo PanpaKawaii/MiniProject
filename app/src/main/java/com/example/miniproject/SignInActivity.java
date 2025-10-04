@@ -6,6 +6,7 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast; // Keep Toast for registration success message
 
@@ -18,6 +19,7 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
     private EditText etPassword;
     private TextView tvNotAccountYet;
     private Button btnSignIn;
+    private ImageButton btnBack;
     private TextView tvUsernameErrorSignIn;
     private TextView tvPasswordErrorSignIn;
     private TextView tvSignInError;
@@ -40,7 +42,9 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
         tvUsernameErrorSignIn = findViewById(R.id.tvUsernameErrorSignIn);
         tvPasswordErrorSignIn = findViewById(R.id.tvPasswordErrorSignIn);
         tvSignInError = findViewById(R.id.tvSignInError);
+        btnBack = findViewById(R.id.btnBack);
 
+        btnBack.setOnClickListener(v -> finish());
 
         // Initialize AccountManager
         accountManager = AccountManager.getInstance(this);

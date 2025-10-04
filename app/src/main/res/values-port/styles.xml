@@ -6,12 +6,12 @@
         <item name="android:orientation">horizontal</item>
     </style>
     <style name="HeaderSize">
-        <item name="android:layout_height">120dp</item>
+        <item name="android:layout_height">160dp</item>
     </style>
     <style name="OrientationStyle2">
         <item name="android:orientation">vertical</item>
         <item name="android:layout_width">500dp</item>
-        <item name="android:layout_height">500dp</item>
+        <item name="android:layout_height">460dp</item>
         <item name="android:rotation">-90</item>
         <item name="android:layout_marginBottom">20dp</item>
     </style>
